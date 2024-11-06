@@ -1,0 +1,33 @@
+# 应用服务 WEB 访问端口
+server:
+  tomcat:
+    uri-encoding: UTF-8
+  port: 8988
+  servlet:
+    context-path: /f2pc
+
+# 应用
+spring:
+  application:
+    name: f2pc
+  messages:
+    encoding: UTF-8
+    basename: i18n/messages
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    # sqlite 驱动名称
+    driver-class-name: org.sqlite.JDBC
+    # 数据库地址
+    url: jdbc:sqlite:D:\document\gitResp\f2pc\f2pc\database\sqliteDb.db
+    # 使用一个连接(防止sqlite busy)
+    hikari:
+      maximum-pool-size: 1
+  jpa:
+    # 显示操作记录
+    show-sql: false
+    # 每次启动更改数据表结构
+    hibernate:
+      ddl-auto: update
+

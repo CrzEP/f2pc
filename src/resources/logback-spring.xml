@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/base.xml" />
+    <logger name="org.springframework.web" level="INFO"/>
+    <!-- 控制台打印所有日志 -->
+    <logger name="org.springboot.sample" level="ALL" />
+
+    <springProperty scope="context" name="logPath" source="logging.path"/>
+
+    <!-- 日志的显式格式 -->
+    <property name="log.pattern" value="%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n"/>
+
+    <!-- 定义日志文件 输出位置 -->
+    <property name="logPath" value="${logPath}/log" />
+
+    <!-- 每月滚动日志 打印error级别日志到文件 -->
+    <appender name="FileError" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 只记录ERROR级别日志，添加范围过滤，可以将该类型的日志特殊记录到某个位置 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>ERROR</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/error/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 每日滚动日志 打印warn级别日志到文件 -->
+    <appender name="FileWarn" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 只记录WARN级别日志，添加范围过滤，可以将该类型的日志特殊记录到某个位置 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>WARN</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/warn/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>2GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 每日滚动日志 打印所有级别日志到文件 -->
+    <appender name="FileAll" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 记录ALL级别日志，添加范围过滤，可以将该类型的日志特殊记录到某个位置 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ALL</level>
+        </filter>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logPath}/all/%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <totalSizeCap>3GB</totalSizeCap>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 开发、测试环境 输出所有日志-->
+    <springProfile name="test,dev">
+        <root>
+            <!-- 储存错误日志 -->
+            <appender-ref ref="FileError"/>
+            <!-- 储存警告日志 -->
+            <appender-ref ref="FileWarn"/>
+            <!-- 储存所有日志 -->
+            <appender-ref ref="FileAll"/>
+        </root>
+    </springProfile>
+
+    <!-- 生产环境 只输出warn error 日志 -->
+    <springProfile name="prod">
+        <root level = "WARN">
+            <!-- 储存错误日志 -->
+            <appender-ref ref="FileError"/>
+            <!-- 储存警告日志 -->
+            <appender-ref ref="FileWarn"/>
+        </root>
+    </springProfile>
+
+</configuration>
