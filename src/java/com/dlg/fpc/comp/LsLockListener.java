@@ -5,7 +5,6 @@ import com.dlg.fpc.wincp.Win32WindowState;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.Date;
 
 /**
  * 锁定监听器
@@ -27,11 +26,20 @@ public class LsLockListener implements Win32WindowState.OnWindowsLockListener {
      */
     private boolean lock = false;
 
-    @Getter
-    private long nextHit = setUnLockHit();
+    /**
+     * 久坐定义时间
+     */
+    private final long longSit = 90 * 60_000;
+
+    /**
+     * 提醒最小间隔
+     */
+    private final long hitTime = 5 * 60_000;
+    private long nextHit = System.currentTimeMillis() + longSit;
 
     public LsLockListener() {
-        lockTime = System.currentTimeMillis();
+        // 默认提前
+        lockTime = System.currentTimeMillis() - 10;
         unLockTime = System.currentTimeMillis();
     }
 
@@ -44,7 +52,7 @@ public class LsLockListener implements Win32WindowState.OnWindowsLockListener {
         } else {
             unLockTime = System.currentTimeMillis();
             log.info("解锁时间： {}", DateUtils.parseTimeToStr(unLockTime));
-            nextHit = setUnLockHit();
+            nextHit = System.currentTimeMillis() + longSit;
             log.info("下次提醒： {}", DateUtils.parseTimeToStr(nextHit));
         }
     }
@@ -52,15 +60,6 @@ public class LsLockListener implements Win32WindowState.OnWindowsLockListener {
     @Override
     public boolean isLock() {
         return lock;
-    }
-
-    /**
-     * 下次解锁时间
-     *
-     * @return 毫秒
-     */
-    private long setUnLockHit() {
-        return lockTime + 45_60_000;
     }
 
     /**
@@ -72,4 +71,24 @@ public class LsLockListener implements Win32WindowState.OnWindowsLockListener {
         nextHit += time;
     }
 
+    /**
+     * 是否需要提醒
+     *
+     * @return true 需要
+     */
+    public boolean isHit() {
+        return System.currentTimeMillis() > nextHit;
+    }
+
+    /**
+     * 提醒延迟
+     * @param sit
+     */
+    public void hitDelay(int sit) {
+        // 如果没有立即休息，则默认  5min
+        if (0 >= sit) {
+            sit = 1;
+        }
+        nextHit = (long) sit * hitTime;
+    }
 }

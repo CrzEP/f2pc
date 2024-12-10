@@ -36,7 +36,7 @@ public class LsComp {
             return;
         }
         // 是否满足提示条件
-        boolean hitFlag = System.currentTimeMillis() > listener.getNextHit();
+        boolean hitFlag = listener.isHit();
         // 提示
         if (!hitFlag) {
             return;
@@ -44,12 +44,7 @@ public class LsComp {
         tagLogService.logSitlog();
         int sit = noticeLongSit();
         log.info("sit notice return: {}", sit);
-        // 如果没有立即休息，则默认  5min
-        if (0 >= sit) {
-            sit = 1;
-        }
-        // 否则添加选择的延迟时间
-        listener.addHit((long) sit * 5 * 60 * 1000);
+
     }
 
 }

@@ -84,7 +84,7 @@ public class LongSitGui extends JFrame {
             //创建托盘图标
             // 创建图片对象
             ImageIcon icon = new ImageIcon(IMG_PATH + "lsit_128.png");
-            TrayIcon trayIcon = new TrayIcon(icon.getImage(), new String("久坐"), popupMenu);
+            TrayIcon trayIcon = new TrayIcon(icon.getImage(), "久坐", popupMenu);
             trayIcon.setImageAutoSize(true);
             trayIcon.addActionListener(new ActionListener() {
                 @Override
@@ -117,14 +117,6 @@ public class LongSitGui extends JFrame {
                 showDialog(new String[]{"OK"}, getHitMessage(), "久坐提醒", 0);
             }
         });
-        MenuItem nextHit = new MenuItem("nexit hit");
-        nextHit.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                showDialog(new String[]{"OK"}, getNexHitMessage(), "下次提醒", 0);
-            }
-        });
-        popupMenu.add(nextHit);
         popupMenu.add(dilog);
         popupMenu.add(itemExit);
     }
@@ -175,7 +167,11 @@ public class LongSitGui extends JFrame {
         String message = getHitMessage();
         String title = "久坐提醒";
         int defaultIndex = 1;
-        return showDialog(Application.getLongSitGui(), buttonKey, message, title, defaultIndex);
+        int sit = showDialog(Application.getLongSitGui(), buttonKey, message, title, defaultIndex);
+
+        // 否则添加选择的延迟时间
+        lockListener.hitDelay(sit);
+        return sit;
     }
 
     /**
@@ -187,9 +183,10 @@ public class LongSitGui extends JFrame {
         long cost = System.currentTimeMillis() - lockListener.getUnLockTime();
         log.info("cost : {}", cost);
         long min = cost / 60_000;
-        long sec = cost / 1000;
-        return "已使用PC" + min + "分钟 \r\n" + sec + "秒 \r\n" +
-                "开始使用： " + date2str(lockListener.getUnLockTime()) + "\r";
+        long sec = (cost % 60_000) / 1000;
+        return "已使用PC " + min + " 分钟 \r" + sec + " 秒 \r\n" +
+                "开始使用： " + date2str(lockListener.getUnLockTime()) + "\r\n" +
+                getNexHitMessage();
     }
 
     /**
@@ -197,7 +194,7 @@ public class LongSitGui extends JFrame {
      *
      * @return 提醒消息
      */
-    private String getNexHitMessage() {
+    private static String getNexHitMessage() {
         long nextHit = lockListener.getNextHit();
         return "下次提醒时间： " + date2str(nextHit) + "\r";
     }
