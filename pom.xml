@@ -9,9 +9,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>dependencies</module>
-        <module>api</module>
         <module>common</module>
-        <module>service</module>
+        <module>fpc-service</module>
     </modules>
 
     <name>${project.artifactId}</name>
