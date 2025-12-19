@@ -1,0 +1,29 @@
+spring:
+  jackson:
+    date-format: yyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  banner:
+    charset: UTF-8
+    location: classpath:config/banner.txt
+  servlet:
+    # 文件上传配置
+    multipart:
+      # 指定上传文件的临时目录
+      location: /Users/lingui/tmp/f2pc/upload
+      # 单个文件最大值
+      max-file-size: 300MB
+      # 单个请求文件总计最大值
+      max-request-size: 300MB
+  datasource:
+    url: jdbc:mysql://8.138.44.137:13301/gw-dev?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf8&useSSL=false&allowPublicKeyRetrieval=true&allowMultiQueries=true
+    username: root
+    password: msQl8134!#3
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximum-pool-size: 1
+server:
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true

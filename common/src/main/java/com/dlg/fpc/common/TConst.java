@@ -5,4 +5,6 @@ package com.dlg.fpc.common;
  */
 public interface TConst {
 
+    int DEFAULT_MESAGE_LEN = 200;
+
 }
