@@ -1,8 +1,11 @@
 package com.dlg.fpc.service.exceptioon;
 
+import com.dlg.fpc.service.comm.ErrorCode;
 import com.dlg.fpc.service.dto.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageConversionException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -37,6 +40,20 @@ public class HxExceptionHandler {
     @ExceptionHandler(HttpMessageConversionException.class)
     public Result<Object> handleHxException(HttpMessageConversionException ex) {
         return Result.error(ex.getMessage().substring(0, DEFAULT_MESSAGE_LEN));
+    }
+
+    /**
+     * 参数校验异常
+     */
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public Result<Object> argumentExceptionHandler(MethodArgumentNotValidException exception) {
+        FieldError error = exception.getBindingResult().getFieldError();
+        String message = ErrorCode.ARGUMENT_BIND_MSG;
+        if (error != null) {
+            message = error.getDefaultMessage();
+        }
+        log.info("参数绑定异常: {}", message);
+        return Result.error(ErrorCode.ARGUMENT_BIND_ERROR, message);
     }
 
     /**

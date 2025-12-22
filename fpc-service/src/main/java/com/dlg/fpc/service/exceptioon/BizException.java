@@ -16,7 +16,7 @@ public class BizException extends RuntimeException{
 
     public BizException(int errorCode, String errorMsg) {}
     public BizException(String errorMsg) {
-        this.errorCode = ErrorCode.DEF_ERROR_CODE;
+        this.errorCode = ErrorCode.DEF_ERROR;
         this.errorMsg = errorMsg;
     }
 
