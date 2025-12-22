@@ -1,4 +1,4 @@
-package com.dlg.fpc.service.websocket.domain;
+package com.dlg.fpc.service.controller.websocket.domain;
 
 import jakarta.websocket.Session;
 import lombok.AllArgsConstructor;

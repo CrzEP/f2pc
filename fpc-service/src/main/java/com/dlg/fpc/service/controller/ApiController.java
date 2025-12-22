@@ -1,28 +1,31 @@
 package com.dlg.fpc.service.controller;
 
 import com.dlg.fpc.service.comm.anno.LogOperation;
+import com.dlg.fpc.service.dto.Result;
+import com.dlg.fpc.service.dto.req.MessageReq;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @Slf4j
 @RestController
 @RequestMapping("/api")
+@Validated
 public class ApiController {
 
     @GetMapping("ping")
     @LogOperation(value = "测试api")
-    public String ping() {
+    public Result<String> ping() {
         log.info("ping ");
-        return "pong" + " " +System.currentTimeMillis();
+        String message = "pong" + " " + System.currentTimeMillis();
+        return new Result<String>().ok(message);
     }
 
-    @GetMapping("msg/{msg}")
-    @LogOperation(value = "消息测试api")
-    public String msg(@PathVariable("msg") String msg) {
-        return msg + " " +System.currentTimeMillis();
+    @PostMapping("msg")
+    @LogOperation(value = "消息")
+    public Result<String> msg(@Validated @RequestBody MessageReq message) {
+        String msg = message.getMessage() + " " + System.currentTimeMillis();
+        return new Result<String>().ok(msg);
     }
 
 }

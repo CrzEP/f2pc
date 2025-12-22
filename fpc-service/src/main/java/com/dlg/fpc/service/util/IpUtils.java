@@ -17,6 +17,10 @@ public class IpUtils {
 
     private static final String UNKNOWN = "unknown";
 
+    public static String getIpAddr() {
+        return getIpAddr(HttpContextUtils.getHttpServletRequest());
+    }
+
     /**
      * 获取IP地址
      * <p>

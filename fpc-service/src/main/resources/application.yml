@@ -5,6 +5,8 @@ spring:
   banner:
     charset: UTF-8
     location: classpath:config/banner.txt
+  thymeleaf:
+    encoding: utf-8
   servlet:
     # 文件上传配置
     multipart:
@@ -27,3 +29,7 @@ server:
       charset: UTF-8
       enabled: true
       force: true
+  port: 28080
+pass:
+  sm2:
+    key1: 123456

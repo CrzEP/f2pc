@@ -1,9 +1,9 @@
-package com.dlg.fpc.service.websocket;
+package com.dlg.fpc.service.controller.websocket;
 
 import com.dlg.fpc.service.comm.TConst;
 import com.dlg.fpc.service.util.JsonUtils;
-import com.dlg.fpc.service.websocket.domain.SerialSocketData;
-import com.dlg.fpc.service.websocket.domain.WsMessage;
+import com.dlg.fpc.service.controller.websocket.domain.SerialSocketData;
+import com.dlg.fpc.service.controller.websocket.domain.WsMessage;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import lombok.extern.slf4j.Slf4j;

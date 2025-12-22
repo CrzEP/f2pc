@@ -30,34 +30,42 @@ public class Result<T> implements Serializable {
      */
     private T data;
 
-    public boolean isOK(){
+    public boolean ifOk() {
         return code == SUCCESS;
     }
 
-    public static Result<String> success(){
+    public static Result<String> success() {
         return new Result<>();
     }
 
-    public static Result<Object> error(int code,String msg){
-        Result<Object> result = new Result<Object>();
+    public static Result<Object> error(int code, String msg) {
+        Result<Object> result = new Result<>();
         result.setCode(code);
         result.setMsg(msg);
         result.setData(null);
         return result;
     }
 
-    public static Result<Object> error(String message){
+    public static Result<Object> error(String message) {
         Result<Object> result = new Result<>();
         result.setCode(500);
         result.setMsg(message);
         result.setData(null);
         return result;
     }
-    public static Result<Object> error(int code){
+
+    public static Result<Object> error(int code) {
         Result<Object> result = new Result<>();
         result.setCode(code);
         result.setMsg("error");
         result.setData(null);
         return result;
     }
+
+    public Result<T> ok(T t) {
+        Result<T> result = new Result<>();
+        result.setData(t);
+        return result;
+    }
+
 }

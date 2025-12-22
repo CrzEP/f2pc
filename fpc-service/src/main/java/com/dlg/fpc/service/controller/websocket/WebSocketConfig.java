@@ -1,4 +1,4 @@
-package com.dlg.fpc.service.websocket;
+package com.dlg.fpc.service.controller.websocket;
 
 import com.dlg.fpc.service.comm.TConst;
 import jakarta.websocket.HandshakeResponse;
