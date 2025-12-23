@@ -30,6 +30,7 @@ server:
       enabled: true
       force: true
   port: 28080
+# 账户配置
 account:
   sm2key:
     publick-key: 123456
@@ -40,3 +41,6 @@ account:
     enable: true
     account: fpc@xxcenter.cn
     password: u75bCMnwYRVuWxmf
+# 路径配置
+local-file-path:
+  upload-path: /Users/lingui/tmp/f2pc/upload

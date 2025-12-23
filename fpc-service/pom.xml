@@ -125,6 +125,13 @@
             <artifactId>javax.mail</artifactId>
             <version>1.5.4</version>
         </dependency>
+        <!-- IO工具 -->
+        <!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.18.0</version>
+        </dependency>
     </dependencies>
 
 </project>

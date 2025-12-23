@@ -29,6 +29,9 @@ public class YmlConfigVal {
     @Value("${account.comWChat.url}")
     String comWChatUrl;
 
+    @Value("${local-file-path.upload-path}")
+    String uploadPath;
+
     @PostConstruct
     void init() {
         log.info("邮件是否可用：{}", emailEnable);
