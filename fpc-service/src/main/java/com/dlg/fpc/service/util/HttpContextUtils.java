@@ -1,5 +1,6 @@
 package com.dlg.fpc.service.util;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.http.HttpHeaders;
@@ -73,4 +74,20 @@ public class HttpContextUtils {
 
         return defaultLanguage;
     }
+
+    public static String getCookie(HttpServletRequest request, String name) {
+        if (request == null) {
+            return null;
+        }
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals(name)) {
+                    return cookie.getValue();
+                }
+            }
+        }
+        return null;
+    }
+
 }

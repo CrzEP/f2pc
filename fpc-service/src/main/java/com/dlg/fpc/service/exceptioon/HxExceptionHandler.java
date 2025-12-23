@@ -58,12 +58,15 @@ public class HxExceptionHandler {
 
     /**
      * 最大捕获异常
+     *
      * @param ex ex
      * @return 消息
      */
     @ExceptionHandler(Exception.class)
     public Result<Object> handleHxException(Exception ex) {
-        return Result.error(ex.getMessage().substring(0, DEFAULT_MESSAGE_LEN));
+        String message = ex.getMessage();
+        message = message.length() > DEFAULT_MESSAGE_LEN ? message.substring(0, DEFAULT_MESSAGE_LEN) : message;
+        return Result.error(message);
     }
 
 }
