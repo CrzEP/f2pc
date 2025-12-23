@@ -20,9 +20,9 @@ public class WxChatEmail {
         this.password = password;
     }
 
-    public void sendMail(String from, String to, String subject, String content) {
+    public boolean sendMail(String from, String to, String subject, String content) {
         log.info("sendMail begin");
-        sendEmail(from, to, subject, content);
+        return sendEmail(from, to, subject, content);
     }
 
     /**

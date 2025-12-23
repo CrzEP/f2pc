@@ -19,7 +19,10 @@ public class NoticeComp {
 
     public void notice(String message) {
         log.info("MinSchedule executePerMin");
-        wxChatMessageComp.sendMessage("这是一条测试消息");
+        WxChatMessageComp.WxChatResponse wxChatResponse = wxChatMessageComp.sendMessage("这是一条测试消息");
+        if (!wxChatResponse.ifSuccess()){
+            System.out.println("fail");
+        }
         wxChatEmail.sendMail(
                 "FPC服务",
                 "duanlingui@xxcenter.cn",

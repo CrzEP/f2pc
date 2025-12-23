@@ -43,4 +43,4 @@ account:
     password: u75bCMnwYRVuWxmf
 # 路径配置
 local-file-path:
-  upload-path: /Users/lingui/tmp/f2pc/upload
+  upload-path: /Users/lingui/tmp/f2pc/upload/

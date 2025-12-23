@@ -1,6 +1,7 @@
 package com.dlg.fpc.service.comp;
 
 import com.dlg.fpc.service.config.YmlConfigVal;
+import com.dlg.fpc.service.util.JsonUtils;
 import jakarta.annotation.Resource;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,6 +21,7 @@ public class WxChatMessageComp {
     RestTemplate restTemplate;
     @Resource
     YmlConfigVal configVal;
+    @Resource
 
     private final WxChatMessage wxChatMessage = new WxChatMessage();
 
@@ -28,17 +30,29 @@ public class WxChatMessageComp {
      *
      * @param content 内容
      */
-    public void sendMessage(String content) {
+    public WxChatResponse sendMessage(String content) {
         // 固定的消息发送者
         wxChatMessage.setText(new WxText(content));
         String url = configVal.getComWChatUrl();
         ResponseEntity<String> respond = restTemplate.postForEntity(
                 url, wxChatMessage, String.class
         );
-        if (respond.getStatusCode().is2xxSuccessful()) {
-            log.info("response: {}", respond.getBody());
-        } else {
-            log.error("response: {}", respond.getBody());
+        String body = respond.getBody();
+        WxChatResponse wxChatResponse = JsonUtils.toClass(body, WxChatResponse.class);
+        if (!respond.getStatusCode().is2xxSuccessful()) {
+            log.error("wxChatResponse error code : {}", wxChatResponse.getCode());
+            log.error("wxChatResponse error message : {}", wxChatResponse.getErrmsg());
+        }
+        return wxChatResponse;
+    }
+
+    @Data
+    public static class WxChatResponse {
+        private int code;
+        private String errmsg;
+
+        public boolean ifSuccess() {
+            return code == 0;
         }
     }
 
