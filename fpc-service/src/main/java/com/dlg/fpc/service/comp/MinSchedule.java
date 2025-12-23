@@ -21,13 +21,13 @@ public class MinSchedule {
     @Scheduled(fixedRate = 1000_60_2)
     public void executePerMin() {
         log.info("MinSchedule executePerMin");
-        wxChatMessageComp.sendMessage("这是一条测试消息");
-        wxChatEmail.sendMail(
-                "FPC服务",
-                "duanlingui@xxcenter.cn",
-                "ttest title测试标题",
-                "这是一段邮件正文abc"
-        );
+//        wxChatMessageComp.sendMessage("这是一条测试消息");
+//        wxChatEmail.sendMail(
+//                "FPC服务",
+//                "duanlingui@xxcenter.cn",
+//                "ttest title测试标题",
+//                "这是一段邮件正文abc"
+//        );
     }
 
     /**

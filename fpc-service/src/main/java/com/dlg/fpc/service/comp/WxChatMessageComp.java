@@ -21,7 +21,6 @@ public class WxChatMessageComp {
     RestTemplate restTemplate;
     @Resource
     YmlConfigVal configVal;
-    @Resource
 
     private final WxChatMessage wxChatMessage = new WxChatMessage();
 
