@@ -16,16 +16,18 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class YmlConfigVal {
 
-    @Value("${account.sm2key}")
-    private String mainKey;
-    @Value("${account.sm4key}")
-    private String appKey;
+    @Value("${account.sm2key.publick-key}")
+    private String publicKey;
+    @Value("${account.sm2key.private-key}")
+    private String privateKey;
     @Value("${account.email.enable}")
     Boolean emailEnable;
     @Value("${account.email.account}")
     String emailAccount;
     @Value("${account.email.password}")
     String emailPassword;
+    @Value("${account.comWChat.url}")
+    String comWChatUrl;
 
     @PostConstruct
     void init() {

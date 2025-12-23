@@ -30,6 +30,13 @@ server:
       enabled: true
       force: true
   port: 28080
-pass:
-  sm2:
-    key1: 123456
+account:
+  sm2key:
+    publick-key: 123456
+    private-key: 123
+  comWChat:
+    url: "https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=6c05d813-ff48-4a47-928b-dd17f726587c"
+  email:
+    enable: true
+    account: fpc@xxcenter.cn
+    password: u75bCMnwYRVuWxmf

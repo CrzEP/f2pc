@@ -1,5 +1,7 @@
 package com.dlg.fpc.service.comp;
 
+import com.dlg.fpc.service.util.WxChatEmail;
+import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -8,12 +10,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class MinSchedule {
 
+
+
     /**
-     * 每2分钟执行一次任务
+     * 每1小时执行一次任务
      */
-    @Scheduled(fixedRate = 1000_60_2)
-    public void execute() {
-        log.info("MinSchedule execute");
+    @Scheduled(fixedRate = 1000_60_60)
+    public void executePerHour() {
+        log.info("MinSchedule executePerHour");
     }
+
 
 }
