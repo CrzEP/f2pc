@@ -4,7 +4,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
 /**
- * 编码工具/统一处理
+ * 编码工具/统一处理s
  */
 public class ECodeUtil {
 

@@ -32,15 +32,19 @@ public class WxChatMessageComp {
     public WxChatResponse sendMessage(String content) {
         // 固定的消息发送者
         wxChatMessage.setText(new WxText(content));
+        // 获取url
         String url = configVal.getComWChatUrl();
+        // 发送请求
         ResponseEntity<String> respond = restTemplate.postForEntity(
                 url, wxChatMessage, String.class
         );
+        // 获取响应
         String body = respond.getBody();
         WxChatResponse wxChatResponse = JsonUtils.toClass(body, WxChatResponse.class);
+        // 网络传输层导致的请求失败
         if (!respond.getStatusCode().is2xxSuccessful()) {
-            log.error("wxChatResponse error code : {}", wxChatResponse.getCode());
-            log.error("wxChatResponse error message : {}", wxChatResponse.getErrmsg());
+            log.error("wxChatResponse error code : {}", respond.getStatusCode());
+            log.error("wxChatResponse error body : {}", respond.getBody());
         }
         return wxChatResponse;
     }
@@ -50,6 +54,10 @@ public class WxChatMessageComp {
         private int code;
         private String errmsg;
 
+        /**
+         * true 成功
+         * @return true
+         */
         public boolean ifSuccess() {
             return code == 0;
         }

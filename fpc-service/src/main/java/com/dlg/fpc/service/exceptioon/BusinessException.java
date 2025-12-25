@@ -1,11 +1,11 @@
 package com.dlg.fpc.service.exceptioon;
 
+import org.springframework.http.HttpStatus;
+
 /**
  * 业务异常
  */
 public class BusinessException extends BizException {
-
-    private static final int defaultErrorCode = 500;
 
     public BusinessException(int errorCode, String errorMsg) {
         super(errorCode, errorMsg);
@@ -16,7 +16,7 @@ public class BusinessException extends BizException {
     }
 
     public static BusinessException ex(String String) {
-        return new BusinessException(defaultErrorCode, String);
+        return new BusinessException(HttpStatus.INTERNAL_SERVER_ERROR.value(), String);
     }
 
 }

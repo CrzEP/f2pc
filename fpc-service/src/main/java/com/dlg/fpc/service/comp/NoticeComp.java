@@ -5,6 +5,8 @@ import jakarta.annotation.Resource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
+
 /**
  * 通知组件
  */
@@ -13,21 +15,26 @@ import org.springframework.stereotype.Component;
 public class NoticeComp {
 
     @Resource
-    WxChatMessageComp  wxChatMessageComp;
+    WxChatMessageComp wxChatMessageComp;
     @Resource
     WxChatEmail wxChatEmail;
 
+    private LinkedHashMap<String, String> cacheMap = new LinkedHashMap<>();
+
+    /**
+     * 通知
+     *
+     * @param message 消息
+     */
     public void notice(String message) {
-        log.info("MinSchedule executePerMin");
-        WxChatMessageComp.WxChatResponse wxChatResponse = wxChatMessageComp.sendMessage("这是一条测试消息");
-        if (!wxChatResponse.ifSuccess()){
-            System.out.println("fail");
-        }
-        wxChatEmail.sendMail(
+        log.info("notice");
+        WxChatMessageComp.WxChatResponse wxChatResponse =
+                wxChatMessageComp.sendMessage(message);
+        boolean mailResult = wxChatEmail.sendMail(
                 "FPC服务",
                 "duanlingui@xxcenter.cn",
-                "ttest title测试标题",
-                "这是一段邮件正文abc"
+                "FPC服务",
+                message
         );
     }
 
