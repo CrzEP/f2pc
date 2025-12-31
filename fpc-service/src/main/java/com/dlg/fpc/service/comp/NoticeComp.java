@@ -36,6 +36,7 @@ public class NoticeComp {
                 "FPC服务",
                 message
         );
+
     }
 
 }

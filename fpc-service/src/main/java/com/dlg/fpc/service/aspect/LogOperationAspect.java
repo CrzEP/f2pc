@@ -1,6 +1,5 @@
 package com.dlg.fpc.service.aspect;
 
-
 import com.dlg.fpc.service.comm.anno.LogOperation;
 import com.dlg.fpc.service.entity.ApiLogEntity;
 import com.dlg.fpc.service.service.ApiLogService;
@@ -109,4 +108,5 @@ public class LogOperationAspect {
         //保存到DB
         logService.save(entity);
     }
+
 }
